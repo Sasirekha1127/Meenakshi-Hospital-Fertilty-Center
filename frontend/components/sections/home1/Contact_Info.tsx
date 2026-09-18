@@ -4,7 +4,7 @@ export default function Contact_Info() {
     <section className="contact-info-section">
         <div className="auto-container">
             <div className="row clearfix">
-                <div className="col-lg-3 col-md-6 col-sm-12 info-block">
+                <div className="col-lg-3 col-md-6 col-sm-12 info-block reveal-item">
                     <div className="info-block-one">
                         <div className="inner-box">
                             <div className="icon-box"><i className="icon-10"></i></div>
@@ -13,7 +13,7 @@ export default function Contact_Info() {
                         </div>
                     </div>
                 </div>
-                <div className="col-lg-3 col-md-6 col-sm-12 info-block">
+                <div className="col-lg-3 col-md-6 col-sm-12 info-block reveal-item">
                     <div className="info-block-one">
                         <div className="inner-box">
                             <div className="icon-box"><i className="icon-34"></i></div>
@@ -22,7 +22,7 @@ export default function Contact_Info() {
                         </div>
                     </div>
                 </div>
-                <div className="col-lg-3 col-md-6 col-sm-12 info-block">
+                <div className="col-lg-3 col-md-6 col-sm-12 info-block reveal-item">
                     <div className="info-block-one">
                         <div className="inner-box">
                             <div className="icon-box"><i className="icon-12"></i></div>
@@ -31,7 +31,7 @@ export default function Contact_Info() {
                         </div>
                     </div>
                 </div>
-                <div className="col-lg-3 col-md-6 col-sm-12 info-block">
+                <div className="col-lg-3 col-md-6 col-sm-12 info-block reveal-item">
                     <div className="info-block-one">
                         <div className="inner-box">
                             <div className="icon-box"><i className="icon-13"></i></div>

@@ -1,41 +1,55 @@
+:root {
+  --mhfc-teal: #009890;
+  --mhfc-teal-dark: #007670;
+  --mhfc-green: #74A135;
+  --mhfc-green-dark: #5e8429;
+  --mhfc-gradient: linear-gradient(135deg, #009890 0%, #74A135 100%);
+  --mhfc-soft-bg: #F3F9F6;
+}
 
 /** chooseus-section **/
 
 .chooseus-section{
-  background: #F5F8FA;
+  background: var(--mhfc-soft-bg);
+  padding: 100px 0px 90px 0px;
 }
 
 .chooseus-section .inner-box{
   position: relative;
   display: block;
   background: #fff;
-  box-shadow: 0px 4px 30px rgba(205, 192, 192, 0.25);
-  border-radius: 10px;
+  box-shadow: 0px 10px 40px rgba(0, 152, 144, 0.08);
+  border-radius: 20px;
   overflow: hidden;
+  border: 1px solid rgba(0, 152, 144, 0.12);
 }
 
 .chooseus-section .video-inner{
   position: relative;
   width: 100%;
   text-align: center;
-  padding: 255px 0px;
+  min-height: 480px;
+  height: 100%;
+  padding: 220px 0px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  border-radius: 20px 0px 0px 20px;
 }
 
 .chooseus-section .video-inner .video-btn button.play-btn{
   position: relative;
   display: inline-block;
-  width: 100px;
-  height: 100px;
-  line-height: 100px;
+  width: 90px;
+  height: 90px;
+  line-height: 90px;
   text-align: center;
-  font-size: 30px;
+  font-size: 26px;
   color: #fff;
   border-radius: 50%;
-  background: var(--secondary-color);
-  border: 6px solid rgba(245, 248, 250, 0.3);
+  background: var(--mhfc-gradient);
+  border: 4px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 10px 30px rgba(0, 152, 144, 0.4);
 }
 
 .chooseus-section .video-inner .video-btn button.play-btn:before,
@@ -53,8 +67,8 @@
   animation-delay: .9s;
   content: "";
   position: absolute;
-  -webkit-box-shadow: 0 0 0 0 rgba(245, 248, 250, 0.4);
-  box-shadow: 0 0 0 0 rgba(245, 248, 250, 0.4);
+  -webkit-box-shadow: 0 0 0 0 rgba(0, 152, 144, 0.5);
+  box-shadow: 0 0 0 0 rgba(0, 152, 144, 0.5);
   -webkit-animation: ripple 3s infinite;
   animation: ripple 3s infinite;
   -webkit-transition: all .4s ease;
@@ -104,12 +118,13 @@
   width: 27px;
   height: 27px;
   line-height: 27px;
-  background: var(--secondary-color);
-  font-size: 10px;
+  background: var(--mhfc-green);
+  font-size: 11px;
   color: #fff !important;
   border-radius: 50%;
   text-align: center;
   top: 1px;
+  box-shadow: 0 4px 10px rgba(116, 161, 53, 0.35);
 }
 
 .chooseus-section .inner-box .shape{
@@ -140,17 +155,22 @@
 .chooseus-section .tab-btns .tab-btn h3{
   position: relative;
   display: block;
-  font-size: 28px;
+  font-size: 26px;
   line-height: 38px;
   font-weight: 600;
+  transition: color 300ms ease;
+}
+
+.chooseus-section .tab-btns .tab-btn.active-btn h3{
+  color: var(--mhfc-teal);
 }
 
 .chooseus-section .tab-btns .tab-btn:before{
   position: absolute;
   content: '';
-  background: #DFDFDF;
+  background: rgba(0, 152, 144, 0.15);
   width: calc(100% - 25px);
-  height: 1px;
+  height: 2px;
   left: 0px;
   bottom: 0px;
 }
@@ -158,11 +178,12 @@
 .chooseus-section .tab-btns .tab-btn:after{
   position: absolute;
   content: '';
-  background: var(--secondary-color);
+  background: var(--mhfc-gradient);
   width: 0%;
-  height: 1px;
+  height: 3px;
   left: 0px;
   bottom: 0px;
+  border-radius: 3px;
   transition: all 500ms ease;
 }
 

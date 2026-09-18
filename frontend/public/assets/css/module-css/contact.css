@@ -34,8 +34,8 @@
 .google-map-section .content-box .inner-box h3{
   position: relative;
   display: block;
-  font-size: 24px;
-  line-height: 34px;
+  font-size: 19px;
+  line-height: 26px;
   color: #fff;
   font-weight: 600;
   padding: 25px 25px 24px 30px;
@@ -70,8 +70,8 @@
 
 .google-map-section .content-box h4{
   display: block;
-  font-size: 24px;
-  line-height: 34px;
+  font-size: 18px;
+  line-height: 25px;
   font-weight: 600;
   color: #fff;
   margin-bottom: 8px;
@@ -111,10 +111,10 @@
 .contact-section h2{
   position: relative;
   display: block;
-  font-size: 32px;
-  line-height: 42px;
+  font-size: 24px;
+  line-height: 32px;
   font-weight: 700;
-  margin-bottom: 60px;
+  margin-bottom: 45px;
   text-align: center;
 }
 

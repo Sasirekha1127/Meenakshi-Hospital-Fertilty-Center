@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import Link from "next/link";
+import Image from "next/image";
 
 type SearchPopupProps = {
   isPopup: boolean;
@@ -14,7 +15,13 @@ const SearchPopup: React.FC<SearchPopupProps> = ({ isPopup, handlePopup }) => {
         <div className="upper-box clearfix">
           <figure className="logo-box pull-left">
             <Link href="/">
-              <img src="/assets/images/logo.png" alt="Logo" />
+              <Image
+                src="/assets/images/mhfc-logo.png"
+                alt="Meenakshi Hospital Fertility Center"
+                width={65}
+                height={65}
+                style={{ width: "auto", height: "55px", objectFit: "contain" }}
+              />
             </Link>
           </figure>
           <div className="close-search pull-right" onClick={handlePopup}>

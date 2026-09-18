@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 type SidebarPopupProps = {
   isOpen: boolean;
@@ -30,7 +31,13 @@ const SidebarPopup: React.FC<SidebarPopupProps> = ({ isOpen, onClose }) => {
                 {/* Logo */}
                 <div className="logo">
                   <Link href="/">
-                    <img src="/assets/images/logo.png" alt="Logo" />
+                    <Image
+                      src="/assets/images/mhfc-logo.png"
+                      alt="Meenakshi Hospital Fertility Center"
+                      width={70}
+                      height={70}
+                      style={{ width: "auto", height: "60px", objectFit: "contain" }}
+                    />
                   </Link>
                 </div>
 

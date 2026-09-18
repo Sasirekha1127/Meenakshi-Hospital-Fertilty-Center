@@ -29,7 +29,7 @@ export default function About() {
                                         <h2>Expertise and compassion saved my life</h2>
                                     </div>
                                     <div className="text-box mb_30 pb_30">
-                                        <p>The medical professionals who treated me showed unmatched expertise, compassion, and dedication. Their care and support helped me overcome a serious health challenge and get back to living my life. I am forever grateful for everything they did for me</p>
+                                        <p style={{ textAlign: "justify", textJustify: "inter-word" }}>The medical professionals who treated me showed unmatched expertise, compassion, and dedication. Their care and support helped me overcome a serious health challenge and get back to living my life. I am forever grateful for everything they did for me</p>
                                     </div>
                                     <div className="inner-box">
                                         <div className="row clearfix">

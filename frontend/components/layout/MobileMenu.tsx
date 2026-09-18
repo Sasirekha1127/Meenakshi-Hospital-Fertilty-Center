@@ -31,7 +31,21 @@ export default function MobileMenu({ isSidebar, handleMobileMenu, handleSidebar 
         </div>
         <nav className="menu-box">
           <div className="nav-logo">
-            <Link href="/"><Image src="/assets/images/logo-2.png" alt="Logo Image" width={203} height={40} priority /></Link>
+            <Link href="/" className="logo-brand-link" onClick={handleMobileMenu}>
+              <div className="logo-emblem-box">
+                <Image
+                  src="/assets/images/mhfc-logo.png"
+                  alt="Meenakshi Hospital Fertility Center"
+                  width={44}
+                  height={55}
+                  priority
+                />
+              </div>
+              <div className="logo-brand-text">
+                <span className="brand-name">MEENAKSHI</span>
+                <span className="brand-sub">HOSPITAL &amp; FERTILITY CENTRE</span>
+              </div>
+            </Link>
           </div>
           <div className="menu-outer">
             <ul className="navigation clearfix">
@@ -44,7 +58,21 @@ export default function MobileMenu({ isSidebar, handleMobileMenu, handleSidebar 
 
               {/* Services */}
               <li className={`dropdown ${activeDropdown === 1 ? "current" : ""}`}>
-                <Link href="/departments" onClick={handleMobileMenu}>Services</Link>
+                <a
+                  href="#services"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    toggleDropdown(1);
+                  }}
+                >
+                  Services
+                </a>
+                <div
+                  className={`dropdown-btn ${activeDropdown === 1 ? "open" : ""}`}
+                  onClick={() => toggleDropdown(1)}
+                >
+                  <span className="fa fa-angle-right" />
+                </div>
                 <ul style={{ display: activeDropdown === 1 ? "block" : "none" }}>
                   <li><Link href="/departments" onClick={handleMobileMenu}>All Services</Link></li>
                   <li><Link href="/department-details" onClick={handleMobileMenu}>Cardiology</Link></li>
@@ -54,9 +82,6 @@ export default function MobileMenu({ isSidebar, handleMobileMenu, handleSidebar 
                   <li><Link href="/department-details-5" onClick={handleMobileMenu}>Orthopaedics</Link></li>
                   <li><Link href="/department-details-6" onClick={handleMobileMenu}>Modern Laboratory</Link></li>
                 </ul>
-                <div className={`dropdown-btn ${activeDropdown === 1 ? "open" : ""}`} onClick={() => toggleDropdown(1)}>
-                  <span className="fa fa-angle-right" />
-                </div>
               </li>
 
               {/* Booking Appointment */}

@@ -1,0 +1,607 @@
+/* ==========================================================================
+   MHFC Native Scroll Reveal Animation System
+   - Zero external libraries (Pure CSS + React IntersectionObserver)
+   - Hardware-accelerated GPU transforms & opacity
+   - Premium ease-out curve: cubic-bezier(0.16, 1, 0.3, 1)
+   - Full accessibility: prefers-reduced-motion support
+   - Zero horizontal overflow or layout shifting
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Base Component Styles & Variants
+   -------------------------------------------------------------------------- */
+
+/* Base container */
+.scroll-reveal {
+  opacity: 0;
+  max-width: 100%;
+  will-change: opacity, transform;
+}
+
+/* Variant: Fade-Up (Default when no other modifier or explicitly .scroll-reveal--fade-up) */
+.scroll-reveal:not([class*="scroll-reveal--"]),
+.scroll-reveal--fade-up {
+  transform: translate3d(0, var(--reveal-distance, 26px), 0);
+  transition: opacity var(--reveal-duration, 0.75s) cubic-bezier(0.16, 1, 0.3, 1),
+              transform var(--reveal-duration, 0.75s) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-reveal:not([class*="scroll-reveal--"]).is-revealed,
+.scroll-reveal--fade-up.is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Variant: Pure Fade-In (No translate) */
+.scroll-reveal--fade-in {
+  transform: none;
+  transition: opacity var(--reveal-duration, 0.75s) cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity;
+}
+
+.scroll-reveal--fade-in.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Variant: Slight Slide-In from Left */
+.scroll-reveal--slide-left {
+  transform: translate3d(calc(-1 * var(--reveal-distance, 24px)), 0, 0);
+  transition: opacity var(--reveal-duration, 0.75s) cubic-bezier(0.16, 1, 0.3, 1),
+              transform var(--reveal-duration, 0.75s) cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal--slide-left.is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Variant: Slight Slide-In from Right */
+.scroll-reveal--slide-right {
+  transform: translate3d(var(--reveal-distance, 24px), 0, 0);
+  transition: opacity var(--reveal-duration, 0.75s) cubic-bezier(0.16, 1, 0.3, 1),
+              transform var(--reveal-duration, 0.75s) cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal--slide-right.is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Variant: Gentle Scale-In (Subtle 0.96 -> 1 for images/cards/media) */
+.scroll-reveal--scale-in {
+  transform: scale3d(0.96, 0.96, 1) translate3d(0, 14px, 0);
+  transition: opacity var(--reveal-duration, 0.75s) cubic-bezier(0.16, 1, 0.3, 1),
+              transform var(--reveal-duration, 0.75s) cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal--scale-in.is-revealed {
+  opacity: 1;
+  transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
+}
+
+/* Release GPU layer after animation completes to conserve memory */
+.scroll-reveal.is-revealed:not(.is-animating),
+.scroll-reveal--fade-up.is-revealed:not(.is-animating),
+.scroll-reveal--fade-in.is-revealed:not(.is-animating),
+.scroll-reveal--slide-left.is-revealed:not(.is-animating),
+.scroll-reveal--slide-right.is-revealed:not(.is-animating),
+.scroll-reveal--scale-in.is-revealed:not(.is-animating) {
+  will-change: auto;
+}
+
+/* --------------------------------------------------------------------------
+   2. Staggered Children Animation System (.reveal-item)
+   -------------------------------------------------------------------------- */
+.scroll-reveal-stagger .reveal-item {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal-stagger.is-revealed .reveal-item {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.scroll-reveal-stagger.is-revealed:not(.is-animating) .reveal-item {
+  will-change: auto;
+}
+
+/* Stagger sequence timing */
+.scroll-reveal-stagger.is-revealed .reveal-item:nth-child(1) { transition-delay: 0.06s; }
+.scroll-reveal-stagger.is-revealed .reveal-item:nth-child(2) { transition-delay: 0.14s; }
+.scroll-reveal-stagger.is-revealed .reveal-item:nth-child(3) { transition-delay: 0.22s; }
+.scroll-reveal-stagger.is-revealed .reveal-item:nth-child(4) { transition-delay: 0.30s; }
+.scroll-reveal-stagger.is-revealed .reveal-item:nth-child(5) { transition-delay: 0.38s; }
+.scroll-reveal-stagger.is-revealed .reveal-item:nth-child(6) { transition-delay: 0.46s; }
+.scroll-reveal-stagger.is-revealed .reveal-item:nth-child(7) { transition-delay: 0.54s; }
+.scroll-reveal-stagger.is-revealed .reveal-item:nth-child(8) { transition-delay: 0.62s; }
+
+/* --------------------------------------------------------------------------
+   3. Section-Specific Micro-Animations (Subtle & Contextual)
+   -------------------------------------------------------------------------- */
+
+/* Why Choose Us: Left Media slight slide */
+.scroll-reveal.is-revealed .wc-media {
+  animation: revealSlideLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Doctor Spotlight: Left Content fade up + Right Portrait gentle scale-in */
+.scroll-reveal.is-revealed .ds-content {
+  animation: revealFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.scroll-reveal.is-revealed .ds-visual {
+  animation: revealScaleIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+}
+
+/* Video Section: Media Card gentle scale-in */
+.scroll-reveal.is-revealed .video-player-wrapper {
+  animation: revealScaleIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+/* Keyframes for subtle choreography */
+@keyframes revealFadeUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes revealSlideLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-20px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes revealScaleIn {
+  from {
+    opacity: 0;
+    transform: scale3d(0.96, 0.96, 1) translate3d(0, 12px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. Accessibility & Progressive Enhancement
+   -------------------------------------------------------------------------- */
+/* No-script fallback: all content visible if JS disabled */
+@media (scripting: none) {
+  .scroll-reveal,
+  .scroll-reveal--fade-up,
+  .scroll-reveal--fade-in,
+  .scroll-reveal--slide-left,
+  .scroll-reveal--slide-right,
+  .scroll-reveal--scale-in,
+  .scroll-reveal-stagger .reveal-item,
+  .wc-media,
+  .ds-content,
+  .ds-visual,
+  .video-player-wrapper {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal,
+  .scroll-reveal--fade-up,
+  .scroll-reveal--fade-in,
+  .scroll-reveal--slide-left,
+  .scroll-reveal--slide-right,
+  .scroll-reveal--scale-in,
+  .scroll-reveal.is-revealed,
+  .scroll-reveal-stagger .reveal-item,
+  .scroll-reveal-stagger.is-revealed .reveal-item,
+  .scroll-reveal.is-revealed .wc-media,
+  .scroll-reveal.is-revealed .ds-content,
+  .scroll-reveal.is-revealed .ds-visual,
+  .scroll-reveal.is-revealed .video-player-wrapper {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* ==========================================================================
+   5. Universal Card Scroll-Triggered Reveal Animation System
+   - Initial state: opacity: 0, transform: translateY(40px) scale(0.97)
+   - Visible state: opacity: 1, transform: translateY(0) scale(1)
+   - Duration: 0.8s (ease-out cubic-bezier(0.16, 1, 0.3, 1))
+   - Stagger: 120ms between cards
+   - Low-specificity :where() selectors to strictly preserve existing hover transforms
+   - Re-playable on scroll exit & re-entry
+   - Zero horizontal overflow
+   ========================================================================== */
+
+/* Prevent horizontal overflow on any device */
+html, body {
+  overflow-x: clip;
+}
+
+.page-wrapper {
+  overflow-x: clip;
+}
+
+/* Guarantee carousel and slider items stay flat at top at all times without jumping */
+.spec-carousel-track .spec-card,
+.swiper-wrapper .inner-box {
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+/* Base Initial State: slightly below original position with subtle scale */
+:where(
+  .reveal-card,
+  [data-reveal-card],
+  .reveal-card-group > *,
+  [data-card-grid] > *,
+  .spec-carousel-wrap,
+  .ut-card,
+  .emergency-card,
+  .assist-tile,
+  .hospital-card-wrapper,
+  .opd-float-card,
+  .pillar-row,
+  .dir-row,
+  .faq-support-card,
+  .pt-card,
+  .room-card,
+  .mv-card,
+  .stat-item,
+  .video-tile,
+  .wc-row,
+  .wc-badge,
+  .msb-start-card,
+  .msb-doc-row,
+  .msb-stat-item,
+  .msb-relation,
+  .msb-pt-card,
+  .msb-entry-card,
+  .msb-spec-card,
+  .msb-doc-card,
+  .feature-item,
+  .service-block .inner-box,
+  .service-block-one .inner-box,
+  .service-block-two .inner-box,
+  .doctor-block .inner-box,
+  .doctor-block-one .inner-box,
+  .team-block .inner-box,
+  .team-block-one .inner-box,
+  .news-block .inner-box,
+  .news-block-one .inner-box,
+  .testimonial-block .inner-box,
+  .testimonial-block-one .inner-box,
+  .pricing-block .inner-box,
+  .pricing-block-one .inner-box,
+  .feature-block .inner-box,
+  .feature-block-one .inner-box,
+  .process-block .inner-box,
+  .process-block-one .inner-box,
+  .info-block-one .inner-box,
+  .info-block-two .inner-box
+) {
+  opacity: 0;
+  transform: translateY(40px) scale(0.97);
+  transition: opacity var(--card-reveal-duration, 0.8s) cubic-bezier(0.16, 1, 0.3, 1),
+              transform var(--card-reveal-duration, 0.8s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+  transition-delay: var(--card-stagger-delay, var(--card-reveal-delay, 0s));
+  will-change: opacity, transform;
+}
+
+/* Visible State: smoothly appears in place */
+:where(
+  .reveal-card,
+  [data-reveal-card],
+  .reveal-card-group > *,
+  [data-card-grid] > *,
+  .spec-carousel-wrap,
+  .ut-card,
+  .emergency-card,
+  .assist-tile,
+  .hospital-card-wrapper,
+  .opd-float-card,
+  .pillar-row,
+  .dir-row,
+  .faq-support-card,
+  .pt-card,
+  .room-card,
+  .mv-card,
+  .stat-item,
+  .video-tile,
+  .wc-row,
+  .wc-badge,
+  .msb-start-card,
+  .msb-doc-row,
+  .msb-stat-item,
+  .msb-relation,
+  .msb-pt-card,
+  .msb-entry-card,
+  .msb-spec-card,
+  .msb-doc-card,
+  .feature-item,
+  .service-block .inner-box,
+  .service-block-one .inner-box,
+  .service-block-two .inner-box,
+  .doctor-block .inner-box,
+  .doctor-block-one .inner-box,
+  .team-block .inner-box,
+  .team-block-one .inner-box,
+  .news-block .inner-box,
+  .news-block-one .inner-box,
+  .testimonial-block .inner-box,
+  .testimonial-block-one .inner-box,
+  .pricing-block .inner-box,
+  .pricing-block-one .inner-box,
+  .feature-block .inner-box,
+  .feature-block-one .inner-box,
+  .process-block .inner-box,
+  .process-block-one .inner-box,
+  .info-block-one .inner-box,
+  .info-block-two .inner-box
+).is-card-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Dynamic Stagger Sequence fallback between sibling cards (120ms steps, max 4 per row) */
+:where(
+  .reveal-card,
+  [data-reveal-card],
+  .reveal-card-group > *,
+  [data-card-grid] > *,
+  .ut-card,
+  .emergency-card,
+  .assist-tile,
+  .hospital-card-wrapper,
+  .opd-float-card,
+  .pillar-row,
+  .dir-row,
+  .faq-support-card,
+  .pt-card,
+  .room-card,
+  .mv-card,
+  .stat-item,
+  .video-tile,
+  .wc-row,
+  .wc-badge,
+  .msb-start-card,
+  .msb-doc-row,
+  .msb-stat-item,
+  .msb-relation,
+  .msb-pt-card,
+  .msb-entry-card,
+  .msb-spec-card,
+  .msb-doc-card,
+  .feature-item
+):nth-child(4n + 1) { --card-stagger-delay: 0ms; }
+
+:where(
+  .reveal-card,
+  [data-reveal-card],
+  .reveal-card-group > *,
+  [data-card-grid] > *,
+  .ut-card,
+  .emergency-card,
+  .assist-tile,
+  .hospital-card-wrapper,
+  .opd-float-card,
+  .pillar-row,
+  .dir-row,
+  .faq-support-card,
+  .pt-card,
+  .room-card,
+  .mv-card,
+  .stat-item,
+  .video-tile,
+  .wc-row,
+  .wc-badge,
+  .msb-start-card,
+  .msb-doc-row,
+  .msb-stat-item,
+  .msb-relation,
+  .msb-pt-card,
+  .msb-entry-card,
+  .msb-spec-card,
+  .msb-doc-card,
+  .feature-item
+):nth-child(4n + 2) { --card-stagger-delay: 120ms; }
+
+:where(
+  .reveal-card,
+  [data-reveal-card],
+  .reveal-card-group > *,
+  [data-card-grid] > *,
+  .ut-card,
+  .emergency-card,
+  .assist-tile,
+  .hospital-card-wrapper,
+  .opd-float-card,
+  .pillar-row,
+  .dir-row,
+  .faq-support-card,
+  .pt-card,
+  .room-card,
+  .mv-card,
+  .stat-item,
+  .video-tile,
+  .wc-row,
+  .wc-badge,
+  .msb-start-card,
+  .msb-doc-row,
+  .msb-stat-item,
+  .msb-relation,
+  .msb-pt-card,
+  .msb-entry-card,
+  .msb-spec-card,
+  .msb-doc-card,
+  .feature-item
+):nth-child(4n + 3) { --card-stagger-delay: 240ms; }
+
+:where(
+  .reveal-card,
+  [data-reveal-card],
+  .reveal-card-group > *,
+  [data-card-grid] > *,
+  .ut-card,
+  .emergency-card,
+  .assist-tile,
+  .hospital-card-wrapper,
+  .opd-float-card,
+  .pillar-row,
+  .dir-row,
+  .faq-support-card,
+  .pt-card,
+  .room-card,
+  .mv-card,
+  .stat-item,
+  .video-tile,
+  .wc-row,
+  .wc-badge,
+  .msb-start-card,
+  .msb-doc-row,
+  .msb-stat-item,
+  .msb-relation,
+  .msb-pt-card,
+  .msb-entry-card,
+  .msb-spec-card,
+  .msb-doc-card,
+  .feature-item
+):nth-child(4n) { --card-stagger-delay: 360ms; }
+
+/* Grid / Row column wrappers stagger support */
+.row > *:nth-child(1) :where(.inner-box, .reveal-card, [data-reveal-card]) { --card-stagger-delay: 0ms; }
+.row > *:nth-child(2) :where(.inner-box, .reveal-card, [data-reveal-card]) { --card-stagger-delay: 120ms; }
+.row > *:nth-child(3) :where(.inner-box, .reveal-card, [data-reveal-card]) { --card-stagger-delay: 240ms; }
+.row > *:nth-child(4) :where(.inner-box, .reveal-card, [data-reveal-card]) { --card-stagger-delay: 360ms; }
+
+/* Hover speed refinement: when card is revealed and hovered, transitions respond quickly */
+:where(
+  .reveal-card,
+  [data-reveal-card],
+  .ut-card,
+  .emergency-card,
+  .assist-tile,
+  .hospital-card-wrapper,
+  .opd-float-card,
+  .pillar-row,
+  .dir-row,
+  .faq-support-card,
+  .pt-card,
+  .room-card,
+  .mv-card,
+  .stat-item,
+  .video-tile,
+  .wc-row,
+  .wc-badge,
+  .msb-start-card,
+  .msb-doc-row,
+  .msb-stat-item,
+  .msb-relation,
+  .feature-item,
+  .inner-box
+).is-card-revealed:hover {
+  transition-duration: 0.3s !important;
+  transition-delay: 0s !important;
+}
+
+/* Accessibility & No-Script overrides for cards */
+@media (prefers-reduced-motion: reduce) {
+  :where(
+    .reveal-card,
+    [data-reveal-card],
+    .reveal-card-group > *,
+    [data-card-grid] > *,
+    .spec-carousel-wrap,
+    .ut-card,
+    .emergency-card,
+    .assist-tile,
+    .hospital-card-wrapper,
+    .opd-float-card,
+    .pillar-row,
+    .dir-row,
+    .faq-support-card,
+    .pt-card,
+    .room-card,
+    .mv-card,
+    .stat-item,
+    .video-tile,
+    .wc-row,
+    .wc-badge,
+    .msb-start-card,
+    .msb-doc-row,
+    .msb-stat-item,
+    .msb-relation,
+    .msb-pt-card,
+    .msb-entry-card,
+    .msb-spec-card,
+    .msb-doc-card,
+    .feature-item,
+    .inner-box
+  ) {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+@media (scripting: none) {
+  :where(
+    .reveal-card,
+    [data-reveal-card],
+    .reveal-card-group > *,
+    [data-card-grid] > *,
+    .spec-carousel-wrap,
+    .ut-card,
+    .emergency-card,
+    .assist-tile,
+    .hospital-card-wrapper,
+    .opd-float-card,
+    .pillar-row,
+    .dir-row,
+    .faq-support-card,
+    .pt-card,
+    .room-card,
+    .mv-card,
+    .stat-item,
+    .video-tile,
+    .wc-row,
+    .wc-badge,
+    .msb-start-card,
+    .msb-doc-row,
+    .msb-stat-item,
+    .msb-relation,
+    .msb-pt-card,
+    .msb-entry-card,
+    .msb-spec-card,
+    .msb-doc-card,
+    .feature-item,
+    .inner-box
+  ) {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+

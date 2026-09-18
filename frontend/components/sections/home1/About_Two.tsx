@@ -58,7 +58,7 @@ export default function About_Two() {
                   <h2>Expertise and <br />compassion saved my life</h2>
                 </div>
                 <div className="text-box mb_30">
-                  <p>The phrase emphasizes the importance of healthcare providers, researchers, and innovators working together to create positive change in healthcare.</p>
+                  <p style={{ textAlign: "justify", textJustify: "inter-word" }}>The phrase emphasizes the importance of healthcare providers, researchers, and innovators working together to create positive change in healthcare.</p>
                 </div>
 
                 {/* Tabs Buttons */}
@@ -83,7 +83,7 @@ export default function About_Two() {
                         className={`tab ${activeTab === content.id ? "active-tab" : ""}`}
                       >
                         <div className="inner-box">
-                          <p>{content.paragraph}</p>
+                          <p style={{ textAlign: "justify", textJustify: "inter-word" }}>{content.paragraph}</p>
                           <div className="list-inner">
                             <div className="row clearfix">
                               <div className="col-lg-6 col-md-6 col-sm-12 single-column">

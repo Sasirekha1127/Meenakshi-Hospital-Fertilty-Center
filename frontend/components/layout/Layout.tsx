@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import BackToTop from "../elements/BackToTop";
+import FloatingWhatsApp from "../elements/FloatingWhatsApp";
 import DataBg from "../elements/DataBg";
 import Breadcrumb from "./Breadcrumb";
 import SearchPopup from "./SearchPopup";
@@ -75,13 +76,12 @@ export default function Layout({
     };
     switch (headerStyle) {
       case 1:
+      case 3:
         return <Header1 {...headerProps} />;
       case 2:
         return <Header2 {...headerProps} />;
-      case 3:
-        return <Header3 {...headerProps} />;
       default:
-        return null;
+        return <Header1 {...headerProps} />;
     }
   };
 
@@ -113,6 +113,7 @@ export default function Layout({
         {renderFooter()}
       </div>
       <BackToTop scroll={isScrolled} />
+      <FloatingWhatsApp />
     </>
   );
 }

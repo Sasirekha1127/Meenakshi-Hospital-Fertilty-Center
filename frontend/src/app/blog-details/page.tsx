@@ -6,7 +6,7 @@ export default function Departments_Details() {
 
     return (
         <div className="boxed_wrapper">
-            <Layout headerStyle={3} footerStyle={1} breadcrumbTitle="Blog Details">
+            <Layout headerStyle={1} footerStyle={1} breadcrumbTitle="Blog Details">
                 <section className="sidebar-page-container pt_120 pb_120">
                     <div className="auto-container">
                         <div className="row clearfix">

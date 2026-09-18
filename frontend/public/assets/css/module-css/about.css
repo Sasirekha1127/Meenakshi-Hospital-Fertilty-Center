@@ -29,6 +29,11 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.10);
 }
 
+.content-block-one .content-box .text-box p {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
 .content-block-one .content-box .text-box:before{
   position: absolute;
   content: '';

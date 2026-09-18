@@ -6,10 +6,23 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import MobileMenu from "../MobileMenu";
 
+import {
+  FaMapMarkerAlt,
+  FaPhoneAlt,
+  FaFacebookF,
+  FaInstagram,
+  FaYoutube,
+  FaCalendarAlt,
+} from "react-icons/fa";
+
 // ✅ Define props type
 type Header1Props = {
   scroll: boolean;
+  isMobileMenu?: boolean;
   handleMobileMenu: () => void;
+  handlePopup?: () => void;
+  isSidebar?: boolean;
+  handleSidebar?: () => void;
 };
 
 export default function Header1({ scroll, handleMobileMenu }: Header1Props) {
@@ -23,32 +36,56 @@ export default function Header1({ scroll, handleMobileMenu }: Header1Props) {
             <div className="top-inner">
               <ul className="info-list clearfix">
                 <li>
-                  <i className="icon-46"></i>
-                  <a href="mailto:example@info.com">example@info.com</a>
-                </li>
-                <li>
-                  <i className="icon-2"></i>
-                  <Link href="/">Pay your bill</Link>
-                </li>
-                <li>
-                  <i className="icon-3"></i>
-                  Open Hours: <span>Mon - Fri: 8:00am to 5:00pm</span>
+                  <FaMapMarkerAlt style={{ color: "#ffffff", marginRight: "8px", fontSize: "14px", display: "inline-block", verticalAlign: "middle" }} />
+                  <a
+                    href="https://maps.google.com/?q=18/61,+Sengodipuram,+Dharmapuri+-+636701,+Tamil+Nadu"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    18/61, Sengodipuram, Dharmapuri – 636701, Tamil Nadu
+                  </a>
                 </li>
               </ul>
-              <ul className="social-links clearfix">
-                <li>
-                  <h6>Follow Us</h6>
-                </li>
-                <li>
-                  <Link href="/"><i className="icon-4"></i></Link>
-                </li>
-                <li>
-                  <Link href="/"><i className="icon-5"></i></Link>
-                </li>
-                <li>
-                  <Link href="/"><i className="icon-6"></i></Link>
-                </li>
-              </ul>
+              <div className="top-right-bar">
+                <a href="tel:+919367712345" className="top-phone-link">
+                  <FaPhoneAlt style={{ fontSize: "12px", marginRight: "6px" }} />
+                  <span>+91 93677 12345</span>
+                </a>
+                <span className="top-divider">|</span>
+                <span className="follow-us-text">Follow Us</span>
+                <ul className="social-links-clean">
+                  <li>
+                    <Link
+                      href="https://www.facebook.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Facebook"
+                    >
+                      <FaFacebookF />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="https://www.instagram.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Instagram"
+                    >
+                      <FaInstagram />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="https://www.youtube.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="YouTube"
+                    >
+                      <FaYoutube />
+                    </Link>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -58,8 +95,20 @@ export default function Header1({ scroll, handleMobileMenu }: Header1Props) {
             <div className="outer-box">
               <div className="logo-box">
                 <figure className="logo">
-                  <Link href="/">
-                    <Image src="/assets/images/logo.png" alt="Logo Image" width={203} height={40} priority />
+                  <Link href="/" className="logo-brand-link">
+                    <div className="logo-emblem-box">
+                      <Image
+                        src="/assets/images/mhfc-logo.png"
+                        alt="Meenakshi Hospital Fertility Center"
+                        width={50}
+                        height={63}
+                        priority
+                      />
+                    </div>
+                    <div className="logo-brand-text">
+                      <span className="brand-name">MEENAKSHI</span>
+                      <span className="brand-sub">HOSPITAL &amp; FERTILITY CENTRE</span>
+                    </div>
                   </Link>
                 </figure>
               </div>
@@ -121,8 +170,9 @@ export default function Header1({ scroll, handleMobileMenu }: Header1Props) {
 
               <div className="menu-right-content">
                 <div className="btn-box">
-                  <Link href="/appointment" className="theme-btn btn-one">
-                    <span>Appointment</span>
+                  <Link href="/appointment" className="btn-header-appointment">
+                    <FaCalendarAlt style={{ fontSize: "14px", marginRight: "8px" }} />
+                    <span>BOOK APPOINTMENT</span>
                   </Link>
                 </div>
               </div>
@@ -136,8 +186,20 @@ export default function Header1({ scroll, handleMobileMenu }: Header1Props) {
             <div className="outer-box">
               <div className="logo-box">
                 <figure className="logo">
-                  <Link href="/">
-                    <Image src="/assets/images/logo.png" alt="Logo Image" width={203} height={40} priority />
+                  <Link href="/" className="logo-brand-link">
+                    <div className="logo-emblem-box">
+                      <Image
+                        src="/assets/images/mhfc-logo.png"
+                        alt="Meenakshi Hospital Fertility Center"
+                        width={44}
+                        height={55}
+                        priority
+                      />
+                    </div>
+                    <div className="logo-brand-text">
+                      <span className="brand-name">MEENAKSHI</span>
+                      <span className="brand-sub">HOSPITAL &amp; FERTILITY CENTRE</span>
+                    </div>
                   </Link>
                 </figure>
               </div>
@@ -199,8 +261,9 @@ export default function Header1({ scroll, handleMobileMenu }: Header1Props) {
 
               <div className="menu-right-content">
                 <div className="btn-box">
-                  <Link href="/appointment" className="theme-btn btn-one">
-                    <span>Appointment</span>
+                  <Link href="/appointment" className="btn-header-appointment">
+                    <FaCalendarAlt style={{ fontSize: "14px", marginRight: "8px" }} />
+                    <span>BOOK APPOINTMENT</span>
                   </Link>
                 </div>
               </div>

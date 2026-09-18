@@ -23,16 +23,14 @@ export default function Header2({ scroll, handleMobileMenu }: Header1Props) {
             <div className="top-inner">
               <ul className="info-list clearfix">
                 <li>
-                  <i className="icon-46"></i>
-                  <a href="mailto:example@info.com">example@info.com</a>
-                </li>
-                <li>
-                  <i className="icon-2"></i>
-                  <Link href="/">Pay your bill</Link>
-                </li>
-                <li>
-                  <i className="icon-3"></i>
-                  Open Hours: <span>Mon - Fri: 8:00am to 5:00pm</span>
+                  <i className="icon-13"></i>
+                  <a
+                    href="https://maps.google.com/?q=18/61,+Sengodipuram,+Dharmapuri+-+636701,+Tamil+Nadu"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    18/61, Sengodipuram, Dharmapuri - 636701, Tamil Nadu
+                  </a>
                 </li>
               </ul>
               <ul className="social-links clearfix">
@@ -40,13 +38,24 @@ export default function Header2({ scroll, handleMobileMenu }: Header1Props) {
                   <h6>Follow Us</h6>
                 </li>
                 <li>
-                  <Link href="/"><i className="icon-4"></i></Link>
+                  <Link
+                    href="https://www.instagram.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                  >
+                    <i className="fab fa-instagram"></i>
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/"><i className="icon-5"></i></Link>
-                </li>
-                <li>
-                  <Link href="/"><i className="icon-6"></i></Link>
+                  <Link
+                    href="https://www.youtube.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="YouTube"
+                  >
+                    <i className="fab fa-youtube"></i>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -59,7 +68,14 @@ export default function Header2({ scroll, handleMobileMenu }: Header1Props) {
               <div className="logo-box">
                 <figure className="logo">
                   <Link href="/">
-                    <Image src="/assets/images/logo.png" alt="Logo Image" width={203} height={40} priority />
+                    <Image
+                      src="/assets/images/mhfc-logo.png"
+                      alt="Meenakshi Hospital Fertility Center"
+                      width={95}
+                      height={95}
+                      style={{ width: "auto", height: "85px", objectFit: "contain" }}
+                      priority
+                    />
                   </Link>
                 </figure>
               </div>
@@ -137,7 +153,14 @@ export default function Header2({ scroll, handleMobileMenu }: Header1Props) {
               <div className="logo-box">
                 <figure className="logo">
                   <Link href="/">
-                    <Image src="/assets/images/logo.png" alt="Logo Image" width={203} height={40} priority />
+                    <Image
+                      src="/assets/images/mhfc-logo.png"
+                      alt="Meenakshi Hospital Fertility Center"
+                      width={75}
+                      height={75}
+                      style={{ width: "auto", height: "65px", objectFit: "contain" }}
+                      priority
+                    />
                   </Link>
                 </figure>
               </div>

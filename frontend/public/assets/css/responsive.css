@@ -81,6 +81,12 @@
     visibility:hidden;
     opacity:0;
   }
+  .main-menu .navigation > li.dropdown:hover > ul,
+  .main-menu .navigation > li.dropdown:focus-within > ul{
+    visibility:visible !important;
+    opacity:1 !important;
+    pointer-events:auto !important;
+  }
 }
 
 
@@ -137,8 +143,8 @@
 @media only screen and (max-width: 767px){
 
   .sec-title h2{
-    font-size: 28px;
-    line-height: 36px;
+    font-size: 24px;
+    line-height: 32px;
   }
 
   .sec-pad{

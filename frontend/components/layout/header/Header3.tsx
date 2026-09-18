@@ -35,13 +35,14 @@ export default function Header3({
           <div className="auto-container">
             <div className="outer-box">
               <div className="logo-box">
-                <figure className="logo">
+                <figure className="logo" style={{ background: "#ffffff", padding: "4px 10px", borderRadius: "10px", display: "inline-flex", alignItems: "center" }}>
                   <Link href="/">
                     <Image
-                      src="/assets/images/logo-2.png"
-                      alt="Logo Image"
-                      width={203}
-                      height={40}
+                      src="/assets/images/mhfc-logo.png"
+                      alt="Meenakshi Hospital Fertility Center"
+                      width={90}
+                      height={90}
+                      style={{ width: "auto", height: "82px", objectFit: "contain" }}
                       priority
                     />
                   </Link>
@@ -150,13 +151,14 @@ export default function Header3({
           <div className="auto-container">
             <div className="outer-box">
               <div className="logo-box">
-                <figure className="logo">
+                <figure className="logo" style={{ background: "#ffffff", padding: "3px 8px", borderRadius: "8px", display: "inline-flex", alignItems: "center" }}>
                   <Link href="/">
                     <Image
-                      src="/assets/images/logo-2.png"
-                      alt="Logo Image"
-                      width={203}
-                      height={40}
+                      src="/assets/images/mhfc-logo.png"
+                      alt="Meenakshi Hospital Fertility Center"
+                      width={70}
+                      height={70}
+                      style={{ width: "auto", height: "62px", objectFit: "contain" }}
                       priority
                     />
                   </Link>

@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import { FaPalette } from "react-icons/fa";
 
 const COLOR_OPTIONS = [
-  { name: "default", hex: "#F3A952" }, // blue
-  { name: "pink", hex: "#FFC0CB" },
-  { name: "violet", hex: "#7F00FF" },
-  { name: "crimson", hex: "#DC143C" },
-  { name: "orange", hex: "#00FF00" },
+  { name: "default", hex: "#009890" }, // MHFC Brand Teal
+  { name: "orange", hex: "#74A135" },  // MHFC Brand Green
+  { name: "violet", hex: "#007670" },  // Deep Teal
+  { name: "crimson", hex: "#0C3E3A" }, // Forest Dark Teal
+  { name: "pink", hex: "#8EC443" },    // Fresh Lime Green
 ];
 
 export default function SwitcherMenu() {
@@ -17,9 +17,14 @@ export default function SwitcherMenu() {
 
   useEffect(() => {
     const saved = localStorage.getItem("themeColor");
-    if (saved) {
-      setActiveColor(saved);
-      applyColor(saved);
+    if (saved && saved !== "default") {
+      if (!["default", "orange", "violet", "crimson", "pink"].includes(saved)) {
+        localStorage.removeItem("themeColor");
+        setActiveColor("default");
+      } else {
+        setActiveColor(saved);
+        applyColor(saved);
+      }
     }
   }, []);
 
